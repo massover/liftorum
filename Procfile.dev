@@ -1,0 +1,2 @@
+assets: npm run webpack-dev-server
+web: gunicorn -b localhost:5000 --reload "liftorum:create_app()"
