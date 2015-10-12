@@ -14,7 +14,7 @@ module.exports = {
   devtool: 'eval',
   entry: ['./src/index'],
   output: {
-    path: path.join(__dirname, 'lifts/static/'),
+    path: path.join(__dirname, 'liftorum/static/'),
     filename: 'bundle.js',
     publicPath: '/'
   },
