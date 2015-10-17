@@ -16,7 +16,8 @@ var FormsyDropzoneComponent = React.createClass({
   },
   djsConfig: {
     acceptedFiles: 'video/*',
-    maxFiles: 1
+    maxFiles: 1,
+    dictDefaultMessage: 'Click to upload or drag a file here'
   },
   mixins: [Formsy.Mixin],
   render: function () {
