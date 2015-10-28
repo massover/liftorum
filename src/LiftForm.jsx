@@ -89,10 +89,10 @@ export class LiftForm extends React.Component {
             .post(__APIURL__.concat('/api/comment'))
             .send(data)
             .end(function(err,res){
-              err ? reject(err) : window.location.replace(__APIURL__);
+              err ? reject(err) : window.location.href = __APIURL__;
             });
         } else {
-          window.location.replace(__APIURL__);
+          window.location.href = __APIURL__;
         }
 
       }
