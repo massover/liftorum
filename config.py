@@ -14,7 +14,8 @@ class Config(object):
     # Flask Security
     SECURITY_REGISTERABLE = True
     SECURITY_EMAIL_SENDER = 'noreply@liftorum.com'
-    SECURITY_PASSWORD_HASH = 'sha512_crypt'
+    SECURITY_PASSWORD_HASH = 'bcrypt'
+    SECURITY_PASSWORD_SALT = ''
 
     # Flask Mail
     MAIL_USERNAME = os.getenv('MAILGUN_SMTP_LOGIN')
