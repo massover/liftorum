@@ -20,3 +20,5 @@ venv/*
 lifts/static/videos/*
 !lifts/static/videos/.gitignore
 
+.AWS*
+

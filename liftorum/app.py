@@ -3,8 +3,8 @@ import logging
 import sys
 import os
 from .extensions import db, bootstrap, mail, migrate, s3, api_manager
-from flask_user import current_user
 from flask_restless import ProcessingException
+from flask.ext.security import current_user
 
 def create_app():
     app = Flask(__name__)
@@ -16,10 +16,10 @@ def create_app():
     from liftorum import filters
     app.jinja_env.filters['timesince'] = filters.timesince
 
-    from flask_user import SQLAlchemyAdapter, UserManager
-    from liftorum.main.models import User
-    db_adapter = SQLAlchemyAdapter(db, User)
-    user_manager = UserManager(db_adapter, app)
+    from flask.ext.security import Security, SQLAlchemyUserDatastore
+    from liftorum.main.models import User, Role
+    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+    security = Security(app, user_datastore)
 
     db.init_app(app)
     bootstrap.init_app(app)
@@ -28,8 +28,9 @@ def create_app():
     s3.init_app(app)
 
     def authentication_preprocessor(*args, **kw):
-        if not current_user.is_authenticated():
-            raise ProcessingException(description='Not authenticated!', code=401)
+        pass
+        #if not current_user.is_authenticated():
+        #    raise ProcessingException(description='Not authenticated!', code=401)
 
     def post_preprocessor(data=None, **kw):
         data['user_id'] = current_user.id

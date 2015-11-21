@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, \
     request, abort, current_app, jsonify
-from flask_user import login_required, current_user
+from flask.ext.security import login_required, current_user
 from werkzeug import secure_filename
 import os
 

@@ -4,11 +4,9 @@ import sys
 import random
 import string
 from flask import current_app as app
-from flask_user.passwords import hash_password
-from celery.bin.celery import main as celery_main
 
 from liftorum import create_app
-from liftorum.extensions import db
+from liftorum.extensions import db, s3
 from liftorum.main.models import Lift, User, Comment, Video
 
 from flask_script import Manager
@@ -21,13 +19,13 @@ from sqlalchemy import create_engine
 from sqlalchemy_utils import database_exists, create_database
 
 @manager.command
-def create_testing_postgre_database():
+def create_testing_database():
     engine = create_engine("postgres://localhost:5432/testing")
     if not database_exists(engine.url):
         create_database(engine.url)
 
 @manager.command
-def create_development_postgre_database():
+def create_development_database():
     engine = create_engine("postgres://localhost:5432/development")
     if not database_exists(engine.url):
         create_database(engine.url)
@@ -49,19 +47,24 @@ def create_db():
 def seed_db():
     db.drop_all()
     db.create_all()
-    user = User(
-        username='user',
-        password=app.user_manager.hash_password('password'),
+    user = app.extensions['security'].datastore.create_user(
+        password='password',
         email='user@example.com',
         confirmed_at=datetime.datetime.now(),
         active=True
     )
-    db.session.add(user)
+    video = Video(
+        extension='mov'
+    )
+    db.session.add(video)
     db.session.commit()
+    with open('tests/example.mov', 'rb') as fp:
+        s3.upload_video(fp.read(), video.filename)
     lift = Lift(
         name='squat',
         reps='5',
         weight='225',
+        video=video,
         user=user,
     )
     db.session.add(lift)
@@ -85,4 +88,7 @@ def generate_secret_key():
 if __name__ == '__main__':
     if os.environ.get('CONFIG') is None:
         os.environ['CONFIG'] = 'config.DevelopmentConfig'
+        os.environ['AWS_ACCESS_KEY_ID'] = 'AKIAJVQTV3HOSBXTXOMQ'
+        os.environ['AWS_SECRET_ACCESS_KEY'] = open('.AWS_SECRET_ACCESS_KEY').read().strip()
+
     manager.run()
