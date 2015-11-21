@@ -10,8 +10,9 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(os.environ['CONFIG'])
 
+    print(os.getenv('DATABASE_URL'))
     print('Where is the key')
-    print(app.config['DATABASE_URL'])
+    print(os.getenv('SECRET_KEY'))
     print(app.config['SECRET_KEY'])
 
     import logging
