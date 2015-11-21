@@ -10,6 +10,10 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(os.environ['CONFIG'])
 
+    import logging
+    app.logger.addHandler(logging.StreamHandler(sys.stdout))
+    app.logger.setLevel(logging.ERROR)
+
     from liftorum import main
     app.register_blueprint(main.blueprint)
 
