@@ -9,7 +9,6 @@ class Config(object):
 
     AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID', '')
     AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY', '')
-    SECREY_KEY = os.getenv('SECRET_KEY')
     AWS_URL = 'https://s3-us-west-2.amazonaws.com'
 
     # Flask Security
@@ -48,6 +47,7 @@ class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
     AWS_BUCKET = 'lift-videos-bucket-production'
+    SECREY_KEY = os.getenv('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', '')
     BUNDLE_JS = os.path.join(_this_directory, '/static/bundle.js')
     STYLES_CSS = os.path.join(_this_directory, '/static/styles.css')
