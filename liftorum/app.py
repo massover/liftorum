@@ -11,6 +11,7 @@ def create_app():
     app.config.from_object(os.environ['CONFIG'])
 
     print('Where is the key')
+    print(app.config['DATABASE_URL'])
     print(app.config['SECRET_KEY'])
 
     import logging
