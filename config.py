@@ -47,7 +47,7 @@ class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
     AWS_BUCKET = 'lift-videos-bucket-production'
-    SECREY_KEY = os.getenv('SECRET_KEY')
+    SECRET_KEY = os.getenv('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', '')
     BUNDLE_JS = os.path.join(_this_directory, '/static/bundle.js')
     STYLES_CSS = os.path.join(_this_directory, '/static/styles.css')
