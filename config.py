@@ -12,6 +12,7 @@ class Config(object):
     AWS_URL = 'https://s3-us-west-2.amazonaws.com'
 
     # Flask Security
+    SECURITY_CONFIRMABLE = True
     SECURITY_REGISTERABLE = True
     SECURITY_EMAIL_SENDER = 'noreply@liftorum.com'
     SECURITY_PASSWORD_HASH = 'bcrypt'

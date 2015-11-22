@@ -13,8 +13,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ url_for('main.create_lift') }}">Add a lift</a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Logout</a></li>
+        <li><a href="{{ url_for('security.logout') }}">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
     {% endif %}
