@@ -85,6 +85,11 @@ def generate_secret_key():
     )
     print(secret_key)
 
+@manager.command
+def generate_salt():
+    import bcrypt
+    print(bcrypt.gensalt())
+
 if __name__ == '__main__':
     if os.environ.get('CONFIG') is None:
         os.environ['CONFIG'] = 'config.DevelopmentConfig'
