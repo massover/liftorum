@@ -27,6 +27,10 @@ class Config(object):
 
     ALLOWED_EXTENSIONS = set(['MOV', 'mp4'])
 
+    # Disable until I get jwt working
+    # Flask Security requires csrf tokens on token authentication
+    WTF_CSRF_ENABLED = False
+
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
