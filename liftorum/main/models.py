@@ -23,7 +23,7 @@ class Lift(db.Model):
 
 class Video(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    extension = db.Column(db.String(8), nullable=False)
+    file_extension = db.Column(db.String(8), nullable=False)
     lift = db.relationship(
         'Lift',
         cascade='all, delete-orphan',
@@ -37,12 +37,12 @@ class Video(db.Model):
             current_app.config['AWS_URL'],
             current_app.config['AWS_BUCKET'],
             self.id,
-            self.extension
+            self.file_extension
         )
 
     @property
     def filename(self):
-        return '%d.%s' % (self.id, self.extension)
+        return '%d.%s' % (self.id, self.file_extension)
 
 
 class Comment(db.Model):

@@ -45,12 +45,26 @@ def create_app():
     api_manager.init_app(
         app,
         flask_sqlalchemy_db=db,
-        preprocessors={'POST': [authentication_preprocessor, post_preprocessor]}
+        preprocessors={'POST': [authentication_preprocessor]}
     )
     from liftorum.main.models import Lift, Video, Comment
-    api_manager.create_api(Lift, methods=['GET', 'POST', 'DELETE'], app=app)
+    api_manager.create_api(
+        Lift,
+        methods=['GET', 'POST', 'DELETE'],
+        app=app,
+        preprocessors={
+            'POST':[post_preprocessor],
+        }
+    )
     api_manager.create_api(Video, methods=['GET', 'POST', 'DELETE'], app=app)
-    api_manager.create_api(Comment, methods=['GET', 'POST', 'DELETE'], app=app)
+    api_manager.create_api(
+        Comment,
+        methods=['GET', 'POST', 'DELETE'],
+        app=app,
+        preprocessors={
+            'POST':[post_preprocessor],
+        }
+    )
 
     return app
 

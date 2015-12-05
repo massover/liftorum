@@ -31,12 +31,16 @@ def create_lift():
 @blueprint.route('/upload-video-to-s3', methods=['POST'])
 def upload_video_to_s3():
     filename = secure_filename(request.files['file'].filename)
-    extension = filename.rsplit('.', 1)[1]
-    video = Video(extension=extension)
+    file_extension = filename.rsplit('.', 1)[1]
+    video = Video(file_extension=file_extension)
     db.session.add(video)
     db.session.commit()
     s3.upload_video(request.files['file'].read(), video.filename)
     return jsonify({'video_id': video.id})
+
+@blueprint.route('/upload-video-to-s3-2', methods=['POST'])
+def upload_video_to_s3_2():
+    s3.upload_video(request.files['file'].read(), request.form['filename'])
 
 @blueprint.route('/lifts/<int:id>/delete')
 @login_required

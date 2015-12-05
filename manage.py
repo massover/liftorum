@@ -53,8 +53,11 @@ def seed_db():
         confirmed_at=datetime.datetime.now(),
         active=True
     )
+    user.username = 'user'
+    db.session.add(user)
+    db.session.commit()
     video = Video(
-        extension='mov'
+        file_extension='mov'
     )
     db.session.add(video)
     db.session.commit()
