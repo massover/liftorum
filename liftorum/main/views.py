@@ -41,6 +41,7 @@ def upload_video_to_s3():
 @blueprint.route('/upload-video-to-s3-2', methods=['POST'])
 def upload_video_to_s3_2():
     s3.upload_video(request.files['file'].read(), request.form['filename'])
+    return jsonify({})
 
 @blueprint.route('/lifts/<int:id>/delete')
 @login_required
