@@ -18,6 +18,9 @@ class Config(object):
     SECURITY_PASSWORD_HASH = 'bcrypt'
     SECURITY_PASSWORD_SALT = os.getenv('SECURITY_PASSWORD_SALT')
 
+    # Flask JWT
+    JWT_AUTH_USERNAME_KEY = 'email'
+
     # Flask Mail
     MAIL_USERNAME = os.getenv('MAILGUN_SMTP_LOGIN')
     MAIL_PASSWORD = os.getenv('MAILGUN_SMTP_PASSWORD')

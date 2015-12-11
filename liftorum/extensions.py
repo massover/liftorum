@@ -15,3 +15,6 @@ migrate = Migrate()
 
 from flask_restless import APIManager
 api_manager = APIManager()
+
+from flask_jwt import JWT
+jwt = JWT()

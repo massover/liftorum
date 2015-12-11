@@ -2,9 +2,10 @@ from flask import Flask
 import logging
 import sys
 import os
-from .extensions import db, bootstrap, mail, migrate, s3, api_manager
+from .extensions import db, bootstrap, mail, migrate, s3, api_manager, jwt
 from flask_restless import ProcessingException
 from flask.ext.security import current_user
+from flask.ext.security.utils import verify_password
 
 def create_app():
     app = Flask(__name__)
@@ -31,13 +32,29 @@ def create_app():
     migrate.init_app(app, db)
     s3.init_app(app)
 
+    @jwt.authentication_handler
+    def authenticate(email, password):
+        user = user_datastore.find_user(email=email)
+        print(user.email)
+        if user and verify_password(password, user.password):
+            return user
+        return None
+
+    @jwt.identity_handler
+    def identity(payload):
+        user = user_datastore.find_user(id=payload['identity'])
+        return user
+
+    jwt.init_app(app)
+
     def authentication_preprocessor(*args, **kw):
         pass
         #if not current_user.is_authenticated():
         #    raise ProcessingException(description='Not authenticated!', code=401)
 
     def post_preprocessor(data=None, **kw):
-        data['user_id'] = current_user.id
+        #data['user_id'] = current_user.id
+        pass
 
     # This was giving me problems.
     # https://github.com/jfinkels/flask-restless/issues/409
