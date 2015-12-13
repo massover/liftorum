@@ -69,7 +69,7 @@ def create_app():
     api_manager.init_app(
         app,
         flask_sqlalchemy_db=db,
-        preprocessors={'POST': [authentication_preprocessor]}
+        preprocessors={'POST': [authentication_preprocessor]},
     )
     from liftorum.main.models import Lift, Video, Comment
     api_manager.create_api(
@@ -78,7 +78,8 @@ def create_app():
         app=app,
         preprocessors={
             'POST':[post_preprocessor],
-        }
+        },
+        results_per_page=3,
     )
     api_manager.create_api(Video, methods=['GET', 'POST', 'DELETE'], app=app)
     api_manager.create_api(
