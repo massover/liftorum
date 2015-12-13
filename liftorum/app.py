@@ -35,7 +35,6 @@ def create_app():
     @jwt.authentication_handler
     def authenticate(email, password):
         user = user_datastore.find_user(email=email)
-        print(user.email)
         if user and verify_password(password, user.password):
             return user
         return None
