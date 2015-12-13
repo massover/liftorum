@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import logging
 import sys
 import os
@@ -6,6 +6,7 @@ from .extensions import db, bootstrap, mail, migrate, s3, api_manager, jwt
 from flask_restless import ProcessingException
 from flask.ext.security import current_user
 from flask.ext.security.utils import verify_password
+from flask_jwt import current_identity
 
 def create_app():
     app = Flask(__name__)
@@ -43,6 +44,13 @@ def create_app():
     def identity(payload):
         user = user_datastore.find_user(id=payload['identity'])
         return user
+
+    @jwt.auth_response_handler
+    def auth_response(access_token, identity):
+        return jsonify({
+            'access_token': access_token.decode('utf-8'),
+            'user_id': identity.id
+        })
 
     jwt.init_app(app)
 
