@@ -33,8 +33,11 @@ def create_app():
     migrate.init_app(app, db)
     s3.init_app(app)
 
+    print("Print something")
+
     @jwt.authentication_handler
     def authenticate(email, password):
+        print("Trying to authenticate")
         user = user_datastore.find_user(email=email)
         if user and verify_password(password, user.password):
             return user
