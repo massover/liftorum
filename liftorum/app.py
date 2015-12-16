@@ -52,9 +52,9 @@ def create_app():
             'user_id': identity.id
         })
 
-    @jwt.jwt_error_handler
-    def error_handler(e):
-        raise ProcessingException(description=str(e), code=401)
+#    @jwt.jwt_error_handler
+#    def error_handler(e):
+#        raise ProcessingException(description=str(e), code=401)
 
     jwt.init_app(app)
 
@@ -72,7 +72,10 @@ def create_app():
     api_manager.init_app(
         app,
         flask_sqlalchemy_db=db,
-        preprocessors=[authentication_preprocessor],
+        preprocessors=dict(
+            POST=[authentication_preprocessor],
+            GET_MANY=[authentication_preprocessor],
+        ),
     )
     from liftorum.main.models import Lift, Video, Comment
     api_manager.create_api(

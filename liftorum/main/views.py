@@ -4,6 +4,8 @@ from flask.ext.security import login_required, current_user
 from werkzeug import secure_filename
 import os
 
+from flask_jwt import jwt_required
+
 from .forms import CommentForm
 from .models import Lift, Video, Comment, User
 from ..extensions import db, s3
@@ -39,6 +41,7 @@ def upload_video_to_s3():
     return jsonify({'video_id': video.id})
 
 @blueprint.route('/upload-video-to-s3-2', methods=['POST'])
+@jwt_required()
 def upload_video_to_s3_2():
     s3.upload_video(request.files['file'].read(), request.form['filename'])
     return jsonify({})
