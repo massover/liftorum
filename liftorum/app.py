@@ -80,8 +80,14 @@ def create_app():
             'POST':[post_preprocessor],
         },
         results_per_page=3,
+        include_methods=['video.url'],
     )
-    api_manager.create_api(Video, methods=['GET', 'POST', 'DELETE'], app=app)
+    api_manager.create_api(
+        Video,
+        methods=['GET', 'POST', 'DELETE'],
+        app=app,
+        include_methods=['url'],
+    )
     api_manager.create_api(
         Comment,
         methods=['GET', 'POST', 'DELETE'],

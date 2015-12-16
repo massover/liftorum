@@ -40,6 +40,15 @@ class Video(db.Model):
             self.file_extension
         )
 
+
+    @property
+    def url(self):
+        return '%s/%s/%d.%s' % (
+            current_app.config['AWS_URL'],
+            current_app.config['AWS_BUCKET'],
+            self.id,
+            self.file_extension
+        )
     @property
     def filename(self):
         return '%d.%s' % (self.id, self.file_extension)
