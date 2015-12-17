@@ -1,3 +1,4 @@
+import datetime
 import os
 
 _this_directory = os.path.dirname(os.path.abspath(__file__))
@@ -19,6 +20,7 @@ class Config(object):
 
     # Flask JWT
     JWT_AUTH_USERNAME_KEY = 'email'
+    JWT_EXPIRATION_DELTA = datetime.timedelta(days=31)
 
     # Flask Mail
     MAIL_USERNAME = os.getenv('MAILGUN_SMTP_LOGIN')
