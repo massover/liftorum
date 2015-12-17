@@ -1,9 +1,9 @@
-from flask import current_app
+from flask import current_app, jsonify
 from flask_jwt import JWT, jwt_required
 from flask_security.utils import verify_password
 from werkzeug.local import LocalProxy
 
-user_datastore = LocalProxy(lambda: current_app.extensions['jwt'].datastore)
+user_datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 jwt = JWT()
 
