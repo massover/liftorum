@@ -3,6 +3,7 @@
 *.swp
 *.swo
 .env
+.idea/*
 dump.rdb
 
 node_modules

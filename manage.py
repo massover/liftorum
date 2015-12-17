@@ -1,6 +1,5 @@
 import datetime
 import os
-import sys
 import random
 import string
 from flask import current_app as app
@@ -18,11 +17,13 @@ manager.add_command('db', MigrateCommand)
 from sqlalchemy import create_engine
 from sqlalchemy_utils import database_exists, create_database
 
+
 @manager.command
 def create_testing_database():
     engine = create_engine("postgres://localhost:5432/testing")
     if not database_exists(engine.url):
         create_database(engine.url)
+
 
 @manager.command
 def create_development_database():
@@ -30,18 +31,22 @@ def create_development_database():
     if not database_exists(engine.url):
         create_database(engine.url)
 
+
 @manager.command
 def runserver():
     app.run(threaded=True)
+
 
 @manager.shell
 def make_shell_context():
     return dict(app=app, db=db, Lift=Lift, User=User, Comment=Comment, Video=Video)
 
+
 @manager.command
 def create_db():
     db.drop_all()
     db.create_all()
+
 
 @manager.command
 def seed_db():

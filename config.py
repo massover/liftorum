@@ -1,8 +1,7 @@
 import os
-import logging
-import sys
 
 _this_directory = os.path.dirname(os.path.abspath(__file__))
+
 
 class Config(object):
     BASE_DIRECTORY = _this_directory
@@ -28,11 +27,7 @@ class Config(object):
     MAIL_PORT = os.getenv('MAILGUN_SMTP_PORT')
     MAIL_DEFAULT_SENDER = 'Liftorum <noreply@liftorum.com>'
 
-    ALLOWED_EXTENSIONS = set(['MOV', 'mp4'])
-
-    # Disable until I get jwt working
-    # Flask Security requires csrf tokens on token authentication
-    WTF_CSRF_ENABLED = False
+    ALLOWED_EXTENSIONS = ['MOV', 'mp4']
 
 class TestingConfig(Config):
     DEBUG = True

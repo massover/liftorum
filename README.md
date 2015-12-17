@@ -5,8 +5,8 @@ virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-python manage.py create_testing_postgre_database
-python manage.py create_development_postgre_database
+python manage.py create_testing_database
+python manage.py create_development_database
 python manage.py seed_db
 ```
 
