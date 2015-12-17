@@ -1,4 +1,3 @@
-from flask import current_app
 from flask_wtf import Form
 from wtforms.fields import SubmitField, TextAreaField, HiddenField
 

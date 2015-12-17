@@ -1,13 +1,11 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, \
-    request, abort, current_app, jsonify
-from flask.ext.security import login_required, current_user
+from flask import Blueprint, render_template, redirect, flash, \
+    request, abort, jsonify
+from flask_security import login_required, current_user
 from werkzeug import secure_filename
-import os
-
 from flask_jwt import jwt_required
 
 from .forms import CommentForm
-from .models import Lift, Video, Comment, User
+from .models import Lift, Video, Comment
 from ..extensions import db, s3
 
 blueprint = Blueprint('main', __name__, template_folder='templates')

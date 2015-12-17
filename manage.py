@@ -1,21 +1,21 @@
 import datetime
+import string
 import os
 import random
-import string
+
 from flask import current_app as app
+from flask_script import Manager
+from flask_migrate import MigrateCommand
+from sqlalchemy import create_engine
+from sqlalchemy_utils import database_exists, create_database
 
 from liftorum import create_app
 from liftorum.extensions import db, s3
 from liftorum.main.models import Lift, User, Comment, Video
 
-from flask_script import Manager
 manager = Manager(create_app)
 
-from flask_migrate import MigrateCommand
 manager.add_command('db', MigrateCommand)
-
-from sqlalchemy import create_engine
-from sqlalchemy_utils import database_exists, create_database
 
 
 @manager.command
@@ -85,6 +85,7 @@ def seed_db():
     db.session.add(comment)
     db.session.commit()
 
+
 @manager.command
 def generate_secret_key():
     secret_key = ''.join(
@@ -92,6 +93,7 @@ def generate_secret_key():
         for _ in range(24)
     )
     print(secret_key)
+
 
 @manager.command
 def generate_salt():

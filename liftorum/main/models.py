@@ -1,11 +1,9 @@
 import datetime
-import os
-from urllib.parse import urljoin
-from flask import url_for
+
 from flask import current_app
 from flask.ext.security import UserMixin, RoleMixin
-
 from ..extensions import db
+
 
 class Lift(db.Model):
     id = db.Column(db.Integer, primary_key=True)

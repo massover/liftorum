@@ -1,9 +1,11 @@
-from flask import Flask
 import sys
+
+from flask import Flask
 import os
 from .extensions import db, bootstrap, mail, migrate, s3
 from .auth import jwt
 from .api import configure_api_manager
+
 
 def create_app():
     app = Flask(__name__)
