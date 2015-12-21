@@ -19,6 +19,7 @@ class Config(object):
     SECURITY_PASSWORD_SALT = os.getenv('SECURITY_PASSWORD_SALT')
 
     # Flask JWT
+    JWT_VERIFY = False
     JWT_AUTH_USERNAME_KEY = 'email'
     JWT_EXPIRATION_DELTA = datetime.timedelta(days=31)
 
