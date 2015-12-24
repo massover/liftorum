@@ -11,6 +11,7 @@ class Lift(db.Model):
     name = db.Column(db.Enum('squat', 'bench', 'deadlift', name='lift_names'), nullable=False)
     reps = db.Column(db.Integer, nullable=False)
     weight = db.Column(db.Integer, nullable=False)
+    text = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     video_id = db.Column(db.Integer, db.ForeignKey('video.id'))
     comments = db.relationship(

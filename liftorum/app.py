@@ -21,7 +21,7 @@ def create_app():
     from liftorum import filters
     app.jinja_env.filters['timesince'] = filters.timesince
 
-    from flask.ext.security import Security, SQLAlchemyUserDatastore
+    from flask_security import Security, SQLAlchemyUserDatastore
     from liftorum.main.models import User, Role
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security = Security(app, user_datastore)
