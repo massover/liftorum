@@ -13,7 +13,7 @@ python manage.py seed_db
 To run the development server:
 
 ```bash
-honcho start -f Procfile.dev
+honcho start -f Procfile.local -e envs/.env.local
 ```
 
 

@@ -33,9 +33,8 @@ def create_development_database():
 
 
 @manager.command
-def runserver():
-    app.run(threaded=True)
-
+def runserver(port=5000):
+    app.run(threaded=True, port=int(port))
 
 @manager.shell
 def make_shell_context():
@@ -102,7 +101,7 @@ def generate_salt():
 
 if __name__ == '__main__':
     if os.environ.get('CONFIG') is None:
-        os.environ['CONFIG'] = 'config.DevelopmentConfig'
+        os.environ['CONFIG'] = 'config.LocalConfig'
         os.environ['AWS_ACCESS_KEY_ID'] = 'AKIAJVQTV3HOSBXTXOMQ'
         os.environ['AWS_SECRET_ACCESS_KEY'] = open('.AWS_SECRET_ACCESS_KEY').read().strip()
 

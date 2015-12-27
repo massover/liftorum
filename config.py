@@ -15,8 +15,6 @@ class Config(object):
     SECURITY_CONFIRMABLE = True
     SECURITY_REGISTERABLE = True
     SECURITY_EMAIL_SENDER = 'noreply@liftorum.com'
-    SECURITY_PASSWORD_HASH = 'bcrypt'
-    SECURITY_PASSWORD_SALT = os.getenv('SECURITY_PASSWORD_SALT')
 
     # Flask JWT
     JWT_VERIFY = False
@@ -32,6 +30,7 @@ class Config(object):
 
     ALLOWED_EXTENSIONS = ['MOV', 'mp4']
 
+
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
@@ -41,7 +40,8 @@ class TestingConfig(Config):
 
     WTF_CSRF_ENABLED = False
 
-class DevelopmentConfig(Config):
+
+class LocalConfig(Config):
     DEBUG = True
     TESTING = False
     AWS_BUCKET = 'lift-videos-bucket-development'
@@ -52,6 +52,8 @@ class DevelopmentConfig(Config):
 
 
 class ProductionConfig(Config):
+    SECURITY_PASSWORD_HASH = 'bcrypt'
+    SECURITY_PASSWORD_SALT = os.getenv('SECURITY_PASSWORD_SALT')
     DEBUG = False
     TESTING = False
     AWS_BUCKET = 'lift-videos-bucket-production'

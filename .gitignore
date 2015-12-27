@@ -2,7 +2,8 @@
 *.pyc
 *.swp
 *.swo
-.env
+/envs/*
+!/envs/.env.sample
 .env.testing
 .idea/*
 dump.rdb
