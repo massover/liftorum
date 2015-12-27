@@ -14,8 +14,8 @@ def configure_api_manager(app):
         app,
         flask_sqlalchemy_db=db,
         preprocessors=dict(
-            POST=[authentication_preprocessor],
-            GET_MANY=[authentication_preprocessor],
+            #POST=[authentication_preprocessor],
+            #GET_MANY=[authentication_preprocessor],
         ),
     )
     api_manager.create_api(
@@ -37,6 +37,11 @@ def configure_api_manager(app):
     )
     api_manager.create_api(
         Comment,
+        methods=['GET', 'POST', 'DELETE'],
+        app=app,
+    )
+    api_manager.create_api(
+        User,
         methods=['GET', 'POST', 'DELETE'],
         app=app,
     )

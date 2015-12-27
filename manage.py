@@ -47,7 +47,6 @@ def create_db():
     db.drop_all()
     db.create_all()
 
-
 @manager.command
 def seed_db():
     db.drop_all()
@@ -77,11 +76,12 @@ def seed_db():
     )
     db.session.add(lift)
     db.session.commit()
-    comment = Comment(
-        text='This is some text for a comment',
-        lift=lift,
-        user=user
-    )
+    for _ in range(3):
+        comment = Comment(
+            text='This is some text for a comment',
+            lift=lift,
+            user=user
+        )
     db.session.add(comment)
     db.session.commit()
 

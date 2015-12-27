@@ -1,6 +1,6 @@
 import sys
 
-from flask import Flask
+from flask import Flask, jsonify
 import os
 from .extensions import db, bootstrap, mail, migrate, s3
 from .auth import jwt
@@ -34,5 +34,17 @@ def create_app():
     jwt.init_app(app)
 
     configure_api_manager(app)
+
+    if app.config['TESTING']:
+        configure_for_testing(app)
+
     return app
+
+def configure_for_testing(app):
+    @app.route('/testing/setup')
+    def setup():
+        db.drop_all()
+        db.create_all()
+        return jsonify({})
+
 
