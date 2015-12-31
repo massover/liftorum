@@ -24,3 +24,5 @@ lifts/static/videos/*
 
 .AWS*
 
+tests/.cache/*
+
