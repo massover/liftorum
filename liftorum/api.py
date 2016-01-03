@@ -22,7 +22,7 @@ def configure_api_manager(app):
         Lift,
         methods=['GET', 'POST', 'DELETE'],
         app=app,
-        results_per_page=3,
+        results_per_page=10,
         include_methods=['video.url'],
         postprocessors={
             'GET_MANY': [get_many_postprocessor_add_user_to_comments],
